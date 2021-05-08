@@ -15,4 +15,11 @@
             let logs = EveryLog.stande.getLog()
             XCTAssertEqual(logs[0].content, "Test Log")
         }
+        
+        func testLog3() {
+            try! EveryLog.stande.addLog(type: .info, "Test Info Log")
+            let logs = EveryLog.stande.getLog()
+            XCTAssertEqual(logs[1].content, "Test Info Log")
+            XCTAssertEqual(logs[1].type.rawValue, "info")
+        }
     }

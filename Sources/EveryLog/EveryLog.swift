@@ -32,7 +32,7 @@ class EveryLog {
         url = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
-    func addLog(date: Date = Date() ,_ log: String) throws {
+    func addLog(date: Date = Date(), _ log: String) throws {
         let logUrl = url.appendingPathComponent("every.log")
         let time = date
         let timeString = date2String(time)
@@ -55,6 +55,29 @@ class EveryLog {
         }
     }
     
+    func addLog(date: Date = Date(), type: Degree, _ log: String) throws {
+        let logUrl = url.appendingPathComponent("every.log")
+        let time = date
+        let timeString = date2String(time)
+        do {
+            var isFirst = false
+            if !fileManager.fileExists(atPath: logUrl.path) {
+                fileManager.createFile(atPath: logUrl.path, contents: nil, attributes: nil)
+                isFirst = true
+            }
+            let file = try String(contentsOfFile: logUrl.path)
+            if isFirst {
+                let newFile = "\(timeString)|\(type.rawValue)|" + log
+                try newFile.write(toFile: logUrl.path, atomically: true, encoding: .utf8)
+            } else {
+                let newFile = file + "\n" + "\(timeString)|\(type.rawValue)|" + log
+                try newFile.write(toFile: logUrl.path, atomically: true, encoding: .utf8)
+            }
+        } catch {
+            throw error
+        }
+    }
+    
     func getLog(_ file: String = "every.log") -> [Log] {
         let logUrl = url.appendingPathComponent(file)
         var logs = [Log]()
@@ -65,6 +88,7 @@ class EveryLog {
         for line in reader {
             let _content = line.split(separator: "|")
             if _content.count == 3 {
+                print(String(_content[1]))
                 let log = Log(time: string2Date(String(_content[0])), type: Degree.string2Degree(String(_content[1])), content: String(_content[2]).trim())
                 logs.append(log)
             } else {
