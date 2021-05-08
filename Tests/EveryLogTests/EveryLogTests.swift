@@ -9,4 +9,10 @@
             let date = Date()
             XCTAssertEqual((try? EveryLog.stande.testLog(date: date, "test log"))!, "\(EveryLog.stande.date2String(date)) | test log")
         }
+        
+        func testLog2() {
+            try! EveryLog.stande.addLog("Test Log")
+            let logs = EveryLog.stande.getLog()
+            XCTAssertEqual(logs[0].content, "Test Log")
+        }
     }
