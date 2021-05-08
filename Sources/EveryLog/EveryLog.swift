@@ -34,8 +34,7 @@ class EveryLog {
     }
     
     func testLog(date: Date ,_ log: String) throws -> String {
-        let time = date
-        let timeString = date2String(time)
+        let timeString = date2String(date)
         let newFile = "\(timeString) | " + log
         return newFile
     }
