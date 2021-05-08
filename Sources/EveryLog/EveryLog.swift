@@ -23,6 +23,16 @@ class EveryLog {
         }
     }
     
+    func getLog(_ file: String = "every.log") throws -> String {
+        let logUrl = url.appendingPathComponent(file)
+        do {
+            let file = try String(contentsOfFile: logUrl.path)
+            return file
+        } catch {
+            throw error
+        }
+    }
+    
     func testLog(date: Date ,_ log: String) throws -> String {
         let time = date
         let timeString = date2String(time)

@@ -6,5 +6,5 @@ A description of this package.
 
 Create a log file with a custom string
 ```swift
-try? EveryLog.stande.testLog(date: date, "test log")
+try? EveryLog.stande.addLog("test log")
 ```
