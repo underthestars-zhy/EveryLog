@@ -1,6 +1,6 @@
 import Foundation
 
-enum Degree: String {
+public enum Degree: String {
     case info = "info"
     case warning = "warning"
     case danger = "danger"
@@ -16,14 +16,14 @@ enum Degree: String {
     }
 }
 
-struct Log {
+public struct Log {
     let time:Date
     let type:Degree
     let content:String
 }
 
-class EveryLog {
-    static let stande = EveryLog()
+public class EveryLog {
+    public static let stande = EveryLog()
     
     let url:URL
     let fileManager = FileManager()
@@ -32,8 +32,8 @@ class EveryLog {
         url = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
-    func addLog(date: Date = Date(), _ log: String) throws {
-        let logUrl = url.appendingPathComponent("every.log")
+    public func addLog(date: Date = Date(), _ log: String, toFile file: String = "every.log") throws {
+        let logUrl = url.appendingPathComponent(file)
         let time = date
         let timeString = date2String(time)
         do {
@@ -55,8 +55,8 @@ class EveryLog {
         }
     }
     
-    func addLog(date: Date = Date(), type: Degree, _ log: String) throws {
-        let logUrl = url.appendingPathComponent("every.log")
+    public func addLog(date: Date = Date(), type: Degree, _ log: String, toFile file: String = "every.log") throws {
+        let logUrl = url.appendingPathComponent(file)
         let time = date
         let timeString = date2String(time)
         do {
@@ -78,7 +78,7 @@ class EveryLog {
         }
     }
     
-    func getLog(_ file: String = "every.log") -> [Log] {
+    public func getLog(_ file: String = "every.log") -> [Log] {
         let logUrl = url.appendingPathComponent(file)
         var logs = [Log]()
         guard let reader = LineReader(path: logUrl.path) else {
@@ -122,7 +122,7 @@ class EveryLog {
     }
 }
 
-public class LineReader {
+class LineReader {
    public let path: String
 
    fileprivate let file: UnsafeMutablePointer<FILE>!

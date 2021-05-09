@@ -4,9 +4,22 @@ A description of this package.
 
 ## Add Log
 
-Create a log file with a custom string
+Create a log file with a **custom** string
 ```swift
 try? EveryLog.stande.addLog("test log")
+```
+
+Add logs via **built-in format**
+```swift
+try? EveryLog.stande.addLog(type: .info, "Test Info Log")
+```
+
+Distinguish the **log level** by setting the type
+```swift
+case info
+case warning
+case danger
+case unowned
 ```
 
 ## Get Log
@@ -23,3 +36,7 @@ struct Log {
     let content:String
 }
 ```
+
+## Use
+
+Use **swift package** to add directly
